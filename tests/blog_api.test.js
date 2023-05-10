@@ -31,16 +31,37 @@ describe("POST requests", () => {
             url: "http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html",
             likes: 9,
         }
-
+        const token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbWFtYXJjZWxhR296byIsImlkIjoiNjJmMTk2ZjMzYzdiNDhkY2JlZmZmZmExIn0.V8hYP43GyFb_5liUVPWzbAGFDduHYvx8tg8iLfnQ3LQ"
         await api
             .post("/api/blogs")
             .send(blog)
+            .set("Authorization", `bearer ${token}`)
             .expect(201)
             .expect("Content-Type", /application\/json/)
 
         const blogs = await helper.getblogsinDB()
 
         expect(blogs).toHaveLength(helper.initialBlogs.length + 1)
+    }, 100000)
+
+    test("POST /api/blogs", async () => {
+        const blog = {
+            title: "TDD harms architecture",
+            author: "Robert C. Martin",
+            url: "http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html",
+            likes: 9,
+        }
+        const token = "BAD_TOKEN"
+        await api
+            .post("/api/blogs")
+            .set("Authorization", `bearer ${token}`)
+            .send(blog)
+            .expect(401)
+
+        const blogs = await helper.getblogsinDB()
+
+        expect(blogs).toHaveLength(helper.initialBlogs.length)
     }, 100000)
 
     test("verify if likes property is missing for making it default 0", async () => {
