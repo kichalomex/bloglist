@@ -32,7 +32,7 @@ describe("POST requests", () => {
             likes: 9,
         }
         const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFsbWFtYXJjZWxhR296byIsImlkIjoiNjJmMTk2ZjMzYzdiNDhkY2JlZmZmZmExIn0.V8hYP43GyFb_5liUVPWzbAGFDduHYvx8tg8iLfnQ3LQ"
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvYmNhcnRlciIsImlkIjoiNjQ1YWYwMTAzM2Q4OTU2MzVmYjdiOWJmIiwiaWF0IjoxNjgzNzU2NDA1fQ.F9XTxnb3xC_4_dpgUv9ZOzeis5NtuNXURTcEVUkoaYs"
         await api
             .post("/api/blogs")
             .send(blog)
